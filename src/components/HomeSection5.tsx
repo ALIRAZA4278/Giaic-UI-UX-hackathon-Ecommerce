@@ -54,7 +54,7 @@ const HomeSection5 = () => {
                                     <span className="flex items-center pr-1">
                                         <Image
                                             src="/Time.png"
-                                            alt="Time"
+                                            alt="timee"
                                             width={30}
                                             height={30}
                                             className="mr-2"
