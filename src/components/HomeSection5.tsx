@@ -53,8 +53,8 @@ const HomeSection5 = () => {
                                 <div className="flex justify-center items-center text-sm text-black mb-4 gap-6">
                                     <span className="flex items-center pr-1">
                                         <Image
-                                            src="/clock.png"
-                                            alt="Clock"
+                                            src="/Time.png"
+                                            alt="Time"
                                             width={30}
                                             height={30}
                                             className="mr-2"
