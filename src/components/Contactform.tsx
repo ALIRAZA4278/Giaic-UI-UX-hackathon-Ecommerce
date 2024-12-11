@@ -33,7 +33,7 @@ const Contactform = () => {
           </div>
 
           <div className="flex items-start space-x-4">
-            <Image src="/time-fill.png" alt="Working Time" width={24} height={24} />
+            <Image src="/Time.png" alt="Working Time" width={24} height={24} />
             <div>
               <h2 className="font-bold text-lg">Working Time</h2>
               <p>
