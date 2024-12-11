@@ -11,29 +11,25 @@ const CartModal = () => {
   const wixClient = useWixClient();
   const { cart, isLoading, removeItem } = useCartStore();
 
-  // Calculate total price
   const totalPrice = cart?.lineItems?.reduce(
     (acc, item) =>
-      acc +
-      (parseFloat(item.price?.amount || "0") * (item.quantity || 0)),
+      acc + (parseFloat(item.price?.amount || "0") * (item.quantity || 0)),
     0
   );
 
   const handleCheckout = async () => {
     try {
-      const checkout =
-        await wixClient.currentCart.createCheckoutFromCurrentCart({
-          channelType: currentCart.ChannelType.WEB,
-        });
+      const checkout = await wixClient.currentCart.createCheckoutFromCurrentCart({
+        channelType: currentCart.ChannelType.WEB,
+      });
 
-      const { redirectSession } =
-        await wixClient.redirects.createRedirectSession({
-          ecomCheckout: { checkoutId: checkout.checkoutId },
-          callbacks: {
-            postFlowUrl: window.location.origin,
-            thankYouPageUrl: `${window.location.origin}/success`,
-          },
-        });
+      const { redirectSession } = await wixClient.redirects.createRedirectSession({
+        ecomCheckout: { checkoutId: checkout.checkoutId },
+        callbacks: {
+          postFlowUrl: window.location.origin,
+          thankYouPageUrl: `${window.location.origin}/success`,
+        },
+      });
 
       if (redirectSession?.fullUrl) {
         window.location.href = redirectSession.fullUrl;
@@ -43,80 +39,74 @@ const CartModal = () => {
     }
   };
 
-  // Early return if cart is empty
   if (!cart || !cart.lineItems?.length) {
     return (
-      <div className="w-max absolute p-4 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white top-12 right-0 flex flex-col gap-6 z-20">
-        <div>Cart is Empty</div>
+      <div className="w-max absolute p-6 rounded-lg shadow-lg bg-white top-12 right-0 flex flex-col gap-4 z-20">
+        <div className="text-gray-600 text-center font-medium">Your cart is empty</div>
       </div>
     );
   }
 
   return (
-    <div className="w-max absolute p-4 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white top-12 right-0 flex flex-col gap-6 z-20">
-      <h2 className="text-xl">Shopping Cart</h2>
-      <div className="flex flex-col gap-8">
+    <div className="w-max absolute p-6 rounded-lg shadow-lg bg-white top-12 right-0 flex flex-col gap-6 z-20">
+      <h2 className="text-2xl font-bold text-gray-800">Shopping Cart</h2>
+      <div className="flex flex-col gap-6">
         {cart.lineItems.map((item) => (
-          <div className="flex gap-4" key={item._id}>
+          <div className="flex gap-4 border-b pb-4" key={item._id}>
             {item.image && (
               <Image
-                src={wixMedia.getScaledToFillImageUrl(item.image, 72, 96, {})}
+                src={wixMedia.getScaledToFillImageUrl(item.image, 80, 100, {})}
                 alt=""
-                width={72}
-                height={96}
+                width={80}
+                height={100}
                 className="object-cover rounded-md"
               />
             )}
             <div className="flex flex-col justify-between w-full">
               <div>
-                <div className="flex items-center justify-between gap-8">
-                  <h3 className="font-semibold">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-semibold text-lg text-gray-700">
                     {item.productName?.original}
                   </h3>
-                  <div className="p-1 bg-gray-50 rounded-sm flex items-center gap-2">
-                    {item.quantity && item.quantity > 1 && (
-                      <div className="text-xs text-green-500">
-                        {item.quantity} x{" "}
-                      </div>
-                    )}
-                    RS:{item.price?.amount}
+                  <div className="text-sm font-medium text-gray-600">
+                    RS: {item.price?.amount}
                   </div>
                 </div>
-                <div className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 mt-1">
                   {item.availability?.status}
-                </div>
+                </p>
               </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Qty. {item.quantity}</span>
-                <span
-                  className="text-blue-500"
-                  style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
+              <div className="flex justify-between text-sm mt-2">
+                <span className="text-gray-500">Qty: {item.quantity}</span>
+                <button
+                  className={`text-red-500 hover:underline ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
                   onClick={() => removeItem(wixClient, item._id!)}
+                  disabled={isLoading}
                 >
                   Remove
-                </span>
+                </button>
               </div>
             </div>
           </div>
         ))}
       </div>
       <div>
-        <div className="flex items-center justify-between font-semibold">
+        <div className="flex items-center justify-between font-semibold text-lg">
           <span>Subtotal</span>
-          <span>RS:{totalPrice}</span>
+          <span>RS: {totalPrice}</span>
         </div>
-        <p className="text-gray-500 text-sm mt-2 mb-4">
+        <p className="text-gray-500 text-sm mt-2">
           Shipping and taxes calculated at checkout.
         </p>
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between mt-4">
           <Link href="/Cart">
-            <button className="rounded-md py-3 px-4 ring-1 ring-gray-300">
+            <button className="rounded-md py-2 px-4 border border-gray-300 hover:bg-gray-100 transition">
               View Cart
             </button>
           </Link>
           <Link href="/Checkout">
             <button
-              className="rounded-md py-3 px-4 bg-black text-white disabled:cursor-not-allowed disabled:opacity-75"
+              className="rounded-md py-2 px-4 bg-black text-white hover:bg-gray-800 transition disabled:cursor-not-allowed disabled:opacity-75"
               disabled={isLoading}
               onClick={handleCheckout}
             >
