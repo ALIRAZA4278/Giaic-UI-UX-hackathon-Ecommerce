@@ -24,14 +24,14 @@ const Pagination = ({
   return (
     <div className="mt-12 flex items-center justify-center w-full gap-4">
       <button
-        className="rounded-md bg-yellow-500  text-black border-2 p-2 text-sm w-fit cursor-pointer disabled:cursor-not-allowed disabled:bg-yellow-200"
+        className="rounded-md bg-yellow-500  text-black border-2 p-2 text-sm w-fit cursor-pointer disabled:cursor-not-allowed disabled:bg-yellow-100"
         disabled={!hasPrev}
         onClick={() => createPageUrl(currentPage - 1)}
       >
         Previous
       </button>
       <button
-        className="rounded-md bg-yellow-500  text-black border-2 p-2 text-sm w-fit cursor-pointer disabled:cursor-not-allowed disabled:bg-yellow-200"
+        className="rounded-md bg-yellow-500  text-black border-2 p-2 text-sm w-fit cursor-pointer disabled:cursor-not-allowed disabled:bg-yellow-100"
         disabled={!hasNext}
         onClick={() => createPageUrl(currentPage + 1)}
       >

@@ -44,11 +44,11 @@ const BlogComponentsForm = () => {
         <h1 className="text-3xl font-bold text-gray-800 mb-8">Recent Posts</h1>
         <div className="w-full max-w-3xl space-y-6">
           {[
-            { img: '/blogSide1.png', title: 'Going all-in with millennial design', date: '03 Aug 2022' },
-            { img: '/blogSide3.png', title: 'Exploring new ways of decorating', date: '15 Sep 2022' },
-            { img: '/blogSide4.png', title: 'Handmade pieces that took time to make', date: '10 Oct 2022' },
-            { img: '/blogSide2.png', title: 'Modern home in Milan', date: '15 Sep 2022' },
-            { img: '/blogSide5.png', title: 'Colorful office redesign', date: '25 Nov 2022' }
+            { img: '/BlogForm1.png', title: 'Going all-in with millennial design', date: '03 Aug 2022' },
+            { img: '/BlogForm2.png', title: 'Exploring new ways of decorating', date: '15 Sep 2022' },
+            { img: '/BlogForm3.png', title: 'Handmade pieces that took time to make', date: '10 Oct 2022' },
+            { img: '/BlogForm4.png', title: 'Modern home in Milan', date: '15 Sep 2022' },
+            { img: '/BlogForm5.png', title: 'Colorful office redesign', date: '25 Nov 2022' }
           ].map((post, index) => (
             <div key={index} className="flex items-start text-left p-4 hover:bg-gray-100 transition duration-200">
               <Image src={post.img} alt={post.title} width={100} height={100} className="rounded-md object-cover" />
